@@ -9,8 +9,9 @@
     "inboundbark"
   ],
   "contact": {
-    "homepage": "https://glass-launcher.net/",
-    "sources": "https://github.com/calmilamsy/stationapi-example-mod"
+    "homepage": "https://github.com/inboundbark/fov-slider",
+    "sources": "https://github.com/inboundbark/fov-slider",
+    "issues": "https://github.com/inboundbark/fov-slider/issues"
   },
 
   "license": "CC0-1.0",
