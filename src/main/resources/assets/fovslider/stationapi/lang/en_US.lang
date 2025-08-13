@@ -1,0 +1,3 @@
+# @ is a shorthand for the current mod id, which is testmod. E.g: tile.@.redclay.name
+option.@.fov=FOV
+option.@.fov.max=Quake Pro

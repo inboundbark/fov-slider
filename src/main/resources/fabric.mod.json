@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "%s",
+  "id": "fovslider",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "FOV Slider",
+  "description": "Simple Field of View (FOV) Slider for Beta 1.7.3",
   "authors": [
-    "Me!"
+    "inboundbark"
   ],
   "contact": {
     "homepage": "https://glass-launcher.net/",
@@ -14,23 +14,28 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/%s/icon.png",
+  "icon": "assets/fovslider/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "stationapi:event_bus": [
-      "%s.events.init.InitListener"
+      "io.github.inboundbark.fovslider.events.init.InitListener"
     ],
     "stationapi:event_bus_client": [
     ],
     "stationapi:event_bus_server": [
+    ],
+    "gcapi3": [
+      "io.github.inboundbark.fovslider.FOVSlider"
     ]
   },
   "mixins": [
-    "%s.mixins.json"
+    "fovslider.mixins.json"
   ],
 
   "depends": {
-    "minecraft": "1.0.0-beta.7.3"
+    "minecraft": "1.0.0-beta.7.3",
+    "gcapi3": "*",
+    "stationapi": ">=2.0.0-alpha.5.1"
   }
 }
