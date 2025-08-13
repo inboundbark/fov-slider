@@ -19,6 +19,9 @@ import static io.github.inboundbark.fovslider.FOVSlider.*;
 public class GameOptionsMixin {
     @Unique
     GlassYamlFile yamlOverride = new GlassYamlFile();
+    @Unique
+    boolean FOVChanged = false;
+
 
     @Inject(method = "getFloat", at = @At("HEAD"), cancellable = true)
     void setupGetFOVFloat(Option par1, CallbackInfoReturnable<Float> cir) {
@@ -30,14 +33,18 @@ public class GameOptionsMixin {
     @Inject(method = "setFloat", at = @At("TAIL"))
     void setupSetFOVFloat(Option value, float par2, CallbackInfo ci) {
         if (value == FOV_SLIDER) {
+            FOVChanged = par2 != FOV_CONFIG.FOV; // prevents unnecessary config reloads
             FOV_CONFIG.FOV = floatAsFOV(par2);
         }
     }
 
     @Inject(method = "save", at = @At(value = "NEW", target = "(Ljava/io/Writer;)Ljava/io/PrintWriter;"))
     void saveFOV(CallbackInfo ci) {
-        yamlOverride.set("FOV", FOV_CONFIG.FOV);
-        GCAPI.reloadConfig("fovslider:config", yamlOverride);
+        if (FOVChanged) {
+            yamlOverride.set("FOV", FOV_CONFIG.FOV);
+            GCAPI.reloadConfig("fovslider:config", yamlOverride);
+            FOVChanged = false;
+        }
     }
 
     @Inject(method = "getString", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/option/GameOptions;getFloat(Lnet/minecraft/client/option/Option;)F"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
