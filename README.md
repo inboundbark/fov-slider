@@ -2,8 +2,8 @@
 
 ## Features
 - FOV slider
-- View model FOV slider
-- FOV slider toggle (use ModMenu instead)
+- View model FOV setting
+- FOV slider toggle (use ModMenu when disabled)
 
 ## Dependencies
 - Glass Config API
