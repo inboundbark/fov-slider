@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "FOV Slider",
-  "description": "Simple Field of View (FOV) Slider for Beta 1.7.3",
+  "description": "Simple field of view (FOV) slider for Beta 1.7.3",
   "authors": [
     "inboundbark"
   ],
@@ -14,7 +14,7 @@
     "issues": "https://github.com/inboundbark/fov-slider/issues"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/fovslider/icon.png",
 
   "environment": "*",
@@ -38,5 +38,9 @@
     "minecraft": "1.0.0-beta.7.3",
     "gcapi3": "*",
     "stationapi": ">=2.0.0-alpha.4"
+  },
+
+  "custom": {
+    "modmenu:clientsideOnly": true
   }
 }
