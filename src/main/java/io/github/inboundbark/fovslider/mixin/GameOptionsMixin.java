@@ -48,9 +48,20 @@ public class GameOptionsMixin {
     }
 
     @Inject(method = "getString", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/option/GameOptions;getFloat(Lnet/minecraft/client/option/Option;)F"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
-    void setupFOVString(Option par1, CallbackInfoReturnable<String> cir, TranslationStorage var2, String var3, float var5) {
-        if (par1 == FOV_SLIDER) {
-            cir.setReturnValue(var5 == 1.0F ? var3 + var2.get("option.fovslider.fov.max") : var3 + floatAsFOV(var5));
+    void setupFOVString(Option option, CallbackInfoReturnable<String> cir, TranslationStorage translationStorage, String string, float f) {
+        if (option == FOV_SLIDER) {
+            String fovString = string;
+            int fov = floatAsFOV(f);
+            if (fov == FOV_DEFAULT) {
+                fovString += translationStorage.get("option.fovslider.fov.default");
+            }
+            else if (fov == FOV_MAX) {
+                fovString += translationStorage.get("option.fovslider.fov.max");
+            }
+            else {
+                fovString += fov;
+            }
+            cir.setReturnValue(fovString);
         }
     }
 }
