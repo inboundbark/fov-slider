@@ -13,6 +13,8 @@ public class FOVSlider {
     public static final int FOV_MIN = 30;
     public static final int FOV_MAX = 110;
     public static final int FOV_RANGE = FOV_MAX - FOV_MIN;
+    public static final int FOV_DEFAULT = 70;
+    public static final int VIEW_MODEL_FOV_DEFAULT = 70;
 
     public static float FOVAsFloat(int fov) {
         return (((float) fov) - FOV_MIN) / FOV_RANGE;
