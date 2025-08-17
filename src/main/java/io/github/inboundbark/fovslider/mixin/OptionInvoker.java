@@ -1,7 +1,6 @@
 package io.github.inboundbark.fovslider.mixin;
 
 import net.minecraft.client.option.Option;
-import net.modificationstation.stationapi.api.util.Util;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
@@ -11,6 +10,6 @@ public interface OptionInvoker {
     // I'd rather have this than needing an entire dependency for only one method.
     @Invoker("<init>")
     static Option fovslider_invokeInitOption(String optionEnumName, int enumOrdinal, String key, boolean slider, boolean toggle) {
-        return Util.assertMixin();
+        throw new AssertionError();
     }
 }
