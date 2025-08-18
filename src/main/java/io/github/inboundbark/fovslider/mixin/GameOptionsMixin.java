@@ -20,35 +20,35 @@ public class GameOptionsMixin {
     @Unique
     GlassYamlFile yamlOverride = new GlassYamlFile();
     @Unique
-    boolean FOVChanged = false;
+    boolean needReloadConfig = false;
 
 
     @Inject(method = "getFloat", at = @At("HEAD"), cancellable = true)
-    void setupGetFOVFloat(Option par1, CallbackInfoReturnable<Float> cir) {
-        if (par1 == FOV_SLIDER) {
+    void fovslider_setupGetFOVFloat(Option option, CallbackInfoReturnable<Float> cir) {
+        if (option == FOV_SLIDER) {
             cir.setReturnValue(FOVAsFloat(FOV_CONFIG.FOV));
         }
     }
 
     @Inject(method = "setFloat", at = @At("TAIL"))
-    void setupSetFOVFloat(Option value, float par2, CallbackInfo ci) {
-        if (value == FOV_SLIDER) {
-            FOVChanged = par2 != FOV_CONFIG.FOV; // prevents unnecessary config reloads
-            FOV_CONFIG.FOV = floatAsFOV(par2);
+    void fovslider_setupSetFOVFloat(Option option, float value, CallbackInfo ci) {
+        if (option == FOV_SLIDER) {
+            FOV_CONFIG.FOV = floatAsFOV(value);
+            needReloadConfig = true;
         }
     }
 
     @Inject(method = "save", at = @At(value = "NEW", target = "(Ljava/io/Writer;)Ljava/io/PrintWriter;"))
-    void saveFOV(CallbackInfo ci) {
-        if (FOVChanged) {
+    void fovslider_saveFOV(CallbackInfo ci) {
+        if (needReloadConfig) {
             yamlOverride.set("FOV", FOV_CONFIG.FOV);
             GCAPI.reloadConfig("fovslider:config", yamlOverride);
-            FOVChanged = false;
+            needReloadConfig = false;
         }
     }
 
     @Inject(method = "getString", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/option/GameOptions;getFloat(Lnet/minecraft/client/option/Option;)F"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
-    void setupFOVString(Option option, CallbackInfoReturnable<String> cir, TranslationStorage translationStorage, String string, float f) {
+    void fovslider_setupFOVString(Option option, CallbackInfoReturnable<String> cir, TranslationStorage translationStorage, String string, float f) {
         if (option == FOV_SLIDER) {
             int fov = floatAsFOV(f);
             cir.setReturnValue(string + switch (fov) {

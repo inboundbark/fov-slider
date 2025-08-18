@@ -52,12 +52,12 @@ public class GameRendererMixin {
     }
 
     @Redirect(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(F)F"))
-    private float getFOV(GameRenderer instance, float tickDelta) {
+    private float fovslider_getFOV(GameRenderer instance, float tickDelta) {
         return this.getFOVModifier(tickDelta, false);
     }
 
     @Inject(method = "renderFirstPersonHand", at = @At("HEAD"))
-    private void setupViewModelFOV(float tickDelta, int eye, CallbackInfo ci) {
+    private void fovslider_setupViewModelFOV(float tickDelta, int eye, CallbackInfo ci) {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
         GLU.gluPerspective(this.getFOVModifier(tickDelta, true), (float)this.client.displayWidth / (float)this.client.displayHeight, 0.05F, this.viewDistance * 2.0F);
